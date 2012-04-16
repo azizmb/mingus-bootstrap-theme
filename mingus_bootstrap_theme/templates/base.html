@@ -1,0 +1,118 @@
+{% load analytics cache compress disqus_tags flatblock_tags generic_content i18n navbar %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>{% block title %}{{ BLOG_SETTINGS.site_name }}{% endblock %}</title>
+
+    {% block meta %}
+    <meta name="keywords" content="{{ BLOG_SETTINGS.meta_keywords }}">
+    <meta name="description" content="{{ BLOG_SETTINGS.meta_description }}">
+    <meta name="author" content="{{ BLOG_SETTINGS.author_name }}">
+    {% endblock %}
+
+    <meta name="copyright" content="{{ BLOG_SETTINGS.copyright }}" />
+    <link rel="shortcut icon" href="{{ STATIC_URL }}img/brackets.ico" type="image/x-icon"/>
+
+    {% block rss %}
+    <link rel="alternate" type="application/rss+xml" title="{{ BLOG_SETTINGS.site_name }} main rss feed" href="{{ BLOG_SETTINGS.rss_url }}">
+    <link rel="alternate" type="application/rss+xml" title="{{ BLOG_SETTINGS.site_name }} all entries feed" href="/feeds/all/">
+    <link rel="alternate" type="application/rss+xml" title="{{ BLOG_SETTINGS.site_name }} all posts feed" href="/feeds/latest/">
+    {% if category %}<link rel="alternate" type="application/rss+xml" title="{{ BLOG_SETTINGS.site_name }} - {{ category }} posts" href="/feeds/categories/{{ category.title|lower }}">{% endif %}
+    {% endblock %}
+
+    {% comment %}
+    {% compress css %}
+    {% endcomment %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css" type="text/css" media="all" charset="utf-8">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+    </style>
+    <link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/bootstrap-responsive.min.css" type="text/css" media="all" charset="utf-8">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/prettify.css" type="text/css" media="all" charset="utf-8">
+    {% comment %}
+    {% endcompress %}
+    {% endcomment %}
+
+
+    {% disqus_dev %}
+    {% block extra_head %}{% endblock %}
+  </head>
+  <body id="{% block body_id %}{% endblock %}" class="{% block body_class %}blog{% endblock %}">
+    {% block body %}
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#" title="{{ BLOG_SETTINGS.site_name }}">{{ BLOG_SETTINGS.site_name }}</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+            <form action="/search/" method="GET" class="navbar-search pull-right">
+              <input type="text" class="search-query" name="q" value="{{ search_term }}" placeholder="Search">
+            </form>
+          </div>
+        </div>
+      </div>
+          <!-- {% navbars %} -->
+    </div>
+
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span12">
+          <div class="row-fluid">
+            <div class="span10">
+              {% block content %}{% endblock %}
+            </div>
+            <div class="span2">
+              {% block sidebar %}
+              {% include 'sections/sidebar.html' %}
+              {% endblock %}
+            </div>
+          </div>
+          <div class="row-fluid">
+            {% cache 3600 "base.footer" %}
+            {% flatblock "footer" 3600 "flatblocks/bare.html" %}
+            {% endcache %}
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    {% endblock %}
+    
+    {% cache 7200 "base.analytics" %}
+    {% analytics %}
+    {% endcache %}
+    {% block extra_body %}
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+      jQuery(function($) {
+        $.getScript('{{ STATIC_URL }}js/prettify.js', function(){
+          prettyPrint();
+        });
+      });
+    </script>
+    {% endblock %}
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}bootstrap/js/bootstrap.js" type="text/javascript"></script>
+
+
+  </body>
+</html>
