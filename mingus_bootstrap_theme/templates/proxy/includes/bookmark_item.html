@@ -1,0 +1,14 @@
+<div class="row-fluid">
+  <div class="span12">
+    <h2><a href="{{ object.content_object.get_absolute_url }}">{{ object.title }}</a></h2>
+    <div class="row-fluid">
+      <div class="span1">
+        <b>{{ object.pub_date|date:"M d" }}</b>
+      </div>
+      <div class="span11">
+        {{ object.description|safe }}
+        <p>Visit: <a href="{{ object.content_object.get_absolute_url }}" title="{{ object.title }}">{{ object.content_object.get_absolute_url }}</a></p>
+      </div>
+    </div>
+  </div>
+</div>

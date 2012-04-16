@@ -1,0 +1,22 @@
+{% load blog tagging_tags inlines oembed_tags pygment_tags %}
+
+<div class="row-fluid">
+  <div class="span12">
+    {% with object.content_object as post %}
+    <h2><a href="{{ object.content_object.get_absolute_url }}">{{ object.title }}</a></h2>
+    {% if post.tease %}
+    <em>{{ post.tease|safe }}</em>
+    {% endif %}
+    <div class="row-fluid">
+      <div class="span1">
+        <b>{{ object.pub_date|date:"M d" }}</b>
+      </div>
+      <div class="span11">
+        {% oembed %}
+        {{ object.description|render_inlines|safe }}
+        {% endoembed %}
+      </div>
+    </div>
+    {% endwith %}
+  </div>
+</div>

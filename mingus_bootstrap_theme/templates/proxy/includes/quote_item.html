@@ -1,0 +1,27 @@
+{% load blog tagging_tags inlines oembed_tags pygment_tags %}
+
+<div class="row-fluid">
+  <div class="span12">
+    {% with object.content_object as post %}
+    <h2><a href="{{ object.content_object.get_absolute_url }}">{{ object.title }}</a></h2>
+    {% if post.tease %}
+    <em>{{ post.tease|safe }}</em>
+    {% endif %}
+    <div class="row-fluid">
+      <div class="span1">
+        <b>{{ object.pub_date|date:"M d" }}</b>
+      </div>
+      <div class="span6">
+        <blockquote cite="{{ object.content_object.get_absolute_url }}" class="pull-right">
+            {{ object.description|safe }}            
+            {% if object.content_object.author %}
+            <small>
+              {{ object.content_object.author }}
+            </small>
+            {% endif %}
+        </blockquote>
+      </div>
+    </div>
+    {% endwith %}
+  </div>
+</div>
