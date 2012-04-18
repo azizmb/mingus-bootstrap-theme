@@ -5,7 +5,7 @@
     {% with object.content_object as post %}
     <h2><a href="{{ object.content_object.get_absolute_url }}">{{ object.title }}</a></h2>
     {% if post.tease %}
-    <em>{{ post.tease|safe }}</em>
+    <div class="tease"><em>{{ post.tease|safe }}</em></div>
     {% endif %}
     <div class="row-fluid">
       <div class="span1">
