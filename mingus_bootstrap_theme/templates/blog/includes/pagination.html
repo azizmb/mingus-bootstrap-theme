@@ -1,12 +1,12 @@
-<div id="pagination">
+<ul class="pager">
   {% if has_next %}
-  <p class="older">
-  <a class="older" href="?page={{ next }}">Older posts &raquo;</a>
-  </p>
+  <li class="previous">
+    <a href="?page={{ next }}">&larr; Older Posts</a>
+  </li>
   {% endif %}
   {% if has_previous %}
-  <p class="newer">
-  <a class="newer" href="?page={{ previous }}">&laquo; Newer posts</a>
-  </p>
+  <li class="next">
+    <a href="?page={{ previous }}">Newer Posts &rarr;</a>
+  </li>
   {% endif %}
-</div>
+</ul>
