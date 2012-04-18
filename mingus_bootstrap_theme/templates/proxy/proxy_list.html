@@ -21,10 +21,10 @@
     {% endifequal %}
     </div>
     {% endfor %}
+    
+    {% if is_paginated %}
+    {% include "blog/includes/pagination.html" %}
+    {% endif %}
   </div>
 </div>
-
-  {% if is_paginated %}
-    {% include "blog/includes/pagination.html" %}
-  {% endif %}
 {% endblock %}
