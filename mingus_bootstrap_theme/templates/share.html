@@ -1,0 +1,21 @@
+<div class="pull-left social_link"
+  <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+</div>
+
+<div class="pull-left social_link">
+  <g:plusone annotation="inline"></g:plusone>
+</div>
+
+<div class="pull-left social_link">
+  <a name="fb_share"></a> 
+</div>
+
+<div class="pull-left social_link">
+  <script type="text/javascript" src="http://www.reddit.com/buttonlite.js?i=1"></script>
+</div>
+
+{% if BLOG_SETTINGS.email_subscribe_url %}
+<div class="pull-left social_link">
+  <a href="{{ BLOG_SETTINGS.rss_url }}">Subscribe RSS</a>
+</div>
+{% endif %}

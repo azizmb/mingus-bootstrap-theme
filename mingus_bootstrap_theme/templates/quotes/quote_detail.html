@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load cache i18n tagging_tags tagging_related %}
+
+{% block title %}{{ object.title }} | {{ block.super }}{% endblock %}
+
+{% block content %}
+{% cache 180 "quote.quote_detail" object.pk %}
+<div class="row-fluid">
+  <div class="span12">
+    <h2>{{ object.title }}</h2>
+    <div class="row-fluid post">
+      <div class="span2">
+        <b>{{ object.publish|date:"M d" }}</b>
+      </div>
+      <div class="span8">
+        <blockquote cite="{{ object.content_object.get_absolute_url }}" class="pull-right">
+            {{ object.quote }}            
+            {% if object.author %}
+            <small>
+              {% if object.url_source %}
+              <a href="{{ object.url_source }}">{{ object.author }}</a>
+              {% else %}
+              {{ object.author }}
+              {% endif %}
+            </small>
+            {% endif %}
+        </blockquote>
+      </div>
+    </div>
+
+    {% tags_for_object object as tag_list %}
+    {% if tag_list %}
+    <div class="tags">
+      {% for tag in tag_list %}
+      <a class="label label-{% cycle 'success' 'warning' 'important' 'info' 'inverse' %}" href="/tags/{{ tag }}">{{ tag }}</a>&nbsp;
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="subscribe clearfix">
+      {% include 'share.html' %}
+    </div>
+
+    {% tagged_get_related object in quoteme.Quote as quote_list with num=3 %}
+    {% if quote_list %}
+    <div class="related">
+      <strong>{% trans "Related quotes" %}:</strong>
+      <ol class="quote inline">
+        {% for quote in quote_list %}
+        <li><a href="{{ quote.get_absolute_url }}">{{ quote.title }}</a></li>
+        {% endfor %}
+      </ol>
+    </div>
+    {% endif %}
+
+    {% include "blog/includes/comments.html" %}
+  </div>
+</div>
+{% endcache %}  
+{% endblock %}

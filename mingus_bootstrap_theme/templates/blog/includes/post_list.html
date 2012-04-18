@@ -1,0 +1,11 @@
+<div class="span12">
+  <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+  <div class="row-fluid">
+    <div class="span1">
+      <b>{{ post.publish|date:"M d" }}</b>
+    </div>
+    <div class="span11">
+      <p>{{ post.tease|safe }}</p>
+    </div>
+  </div>
+</div>
