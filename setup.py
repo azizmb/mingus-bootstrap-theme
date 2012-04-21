@@ -6,4 +6,4 @@ setup(name='mingus_bootstrap_theme',
       packages=find_packages(),
       package_data={'mingus_bootstrap_theme': ['bin/*.*', 'static/*.*', 'templates/*.*']},
       exclude_package_data={'mingus_bootstrap_theme': ['bin/*.pyc']},
-      scripts=['mingus_bootstrap_theme/manage.py'])
+      )
