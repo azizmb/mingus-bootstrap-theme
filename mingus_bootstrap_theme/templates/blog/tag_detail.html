@@ -9,11 +9,15 @@
 
 <h2 class="filter-title">{% trans "Posts tagged:" %} {{ tag.name }}</h2>
 
-  <div class="post_list">
-  {% cache 3600 "blog.tag_detail.object_list" tag.name %}
+{% cache 3600 "blog.tag_detail.object_list" tag.name %}
+<div class="row-fluid">
+  <div class="span12">
     {% for post in object_list %}
-  {% include "blog/includes/post_list.html" %}
+    <div class="row-fluid">
+      {% include "blog/includes/post_list.html" %}
+    </div>
     {% endfor %}
-  {% endcache %}
   </div>
+</div>
+{% endcache %}
 {% endblock %}
