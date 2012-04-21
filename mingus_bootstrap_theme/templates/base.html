@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    {% disqus_dev %}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -71,18 +72,23 @@
           </a>
           <a class="brand" href="#" title="{{ BLOG_SETTINGS.site_name }}">{{ BLOG_SETTINGS.site_name }}</a>
           <div class="nav-collapse">
+            {% comment %}
+            TODO: Use navbar with custom template, or different nav gem
+            {% endcomment %}
+            {% for navbar in navbars %}
             <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
+              {% for entry in navbar %}
+              <li{% if entry.selected %} class="active"{% endif %}>
+                <a href="{{ entry.url }}" title="{{ entry.title|escape }}">{{ entry.name|escape }}</a></li>{% endfor %}
             </ul>
+            {% endfor %}
+
             <form action="/search/" method="GET" class="navbar-search pull-right">
               <input type="text" class="search-query" name="q" value="{{ search_term }}" placeholder="Search">
             </form>
           </div>
         </div>
       </div>
-          <!-- {% navbars %} -->
     </div>
 
     <div class="container-fluid">
