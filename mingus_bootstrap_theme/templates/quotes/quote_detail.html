@@ -53,7 +53,7 @@
     </div>
     {% endif %}
 
-    {% include "blog/includes/comments.html" %}
+    {% include "blog/includes/comments.html" with title=object.title url=object.get_absolute_url snippet=None %}
   </div>
 </div>
 {% endcache %}  

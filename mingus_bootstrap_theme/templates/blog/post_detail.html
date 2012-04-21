@@ -61,7 +61,8 @@
     {% endif %}
     
     {% if object.allow_comments %}
-    {% include "blog/includes/comments.html" %}
+    {% include "blog/includes/comments.html" with title=object.title url=object.get_absolute_url snippet=object.tease %}
+
     {% else %}
     <div id="comments"><h4>Sorry, comments are disabled for this post.</h4></div>
     {% endif %}
