@@ -28,9 +28,7 @@
       <div class="span10">
         <div class="body">
 	      {% load text_tags %}
-          {% oembed %}
-          {{ object.body_markup|render_inlines|safe}}
-          {% endoembed %}
+          {{ object.body_markup|oembed:"600x600"|render_inlines|safe }}
         </div>
       </div>
     </div>

@@ -12,9 +12,7 @@
         <b>{{ object.pub_date|date:"M d" }}</b>
       </div>
       <div class="span11">
-        {% oembed %}
-        {{ object.description|render_inlines|safe }}
-        {% endoembed %}
+        {{ object.description|oembed:"300x300"|render_inlines|safe  }}
       </div>
     </div>
     {% endwith %}
